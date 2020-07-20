@@ -3,7 +3,7 @@
 This extension enables Visual Studiio Code to run ProvarDX CLI commands in an interactive way. Existing Provar customers can execute
 Provar Test Cases from Visual Studio Code. You must be an existing Provar customer with a valid paid license to write and maintain your test cases.
 
-![GIF showing Create properties file, validate and running tests](/images/provardx-preview.gif)
+![GIF showing Create properties file, validate and running tests](https://raw.githubusercontent.com/ProvarTesting/provardx-vscode/master/images/provardx-preview.gif)
 
 ## Prerequisites
 
