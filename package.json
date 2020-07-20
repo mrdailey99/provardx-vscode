@@ -1,0 +1,94 @@
+{
+    "name": "provardx-vscode",
+    "displayName": "ProvarDX",
+    "description": "Provides integration with the ProvarDX SFDX Plugin",
+    "version": "1.0.0",
+    "publisher": "ProvarTesting",
+    "author": {
+        "name": "Make Positive Provar Ltd",
+        "email": "info@provartesting.com"
+    },
+    "engines": {
+        "vscode": "^1.46.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ProvarTesting/provardx-vscode.git"
+    },
+    "bugs": {
+        "url": "https://github.com/ProvarTesting/provardx-vscode/issues"
+    },
+    "icon": "images/provar-icon.png",
+    "license": "BSD-3-Clause",
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:provardx-vscode.createPropertiesFile",
+        "onCommand:provardx-vscode.validate",
+        "onCommand:provardx-vscode.runTests"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "provardx-vscode.createPropertiesFile",
+                "title": "%provardx_create_properties_file%"
+            },
+            {
+                "command": "provardx-vscode.validate",
+                "title": "%provardx_validate%"
+            },
+            {
+                "command": "provardx-vscode.runTests",
+                "title": "%provardx_run_testcases%"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "yarn run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint src --ext ts",
+        "watch": "tsc -watch -p ./",
+        "pretest": "yarn run compile && yarn run lint",
+        "test": "node ./out/test/runTest.js",
+        "prettier": "prettier --write \"**/*.{json,md,ts}\"",
+        "prettier:verify": "prettier --list-different \"**/*.{json,md,ts}\""
+    },
+    "devDependencies": {
+        "@types/cross-spawn": "^6.0.2",
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^13.11.0",
+        "@types/vscode": "^1.46.0",
+        "@typescript-eslint/eslint-plugin": "^2.30.0",
+        "@typescript-eslint/parser": "^2.30.0",
+        "eslint": "^6.8.0",
+        "glob": "^7.1.6",
+        "mocha": "^8.0.1",
+        "typescript": "^3.8.3",
+        "vscode-test": "^1.3.0"
+    },
+    "dependencies": {
+        "@types/chai": "^4.2.11",
+        "@types/sinon": "^9.0.4",
+        "chai": "^4.2.0",
+        "cross-spawn": "^7.0.3",
+        "husky": "^4.2.5",
+        "lint-staged": "^10.2.11",
+        "prettier": "^2.0.5",
+        "rxjs": "^6.6.0",
+        "sinon": "^9.0.2",
+        "tree-kill": "^1.2.2"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "**/*.{json,md,ts}": [
+            "prettier --write"
+        ]
+    }
+}
