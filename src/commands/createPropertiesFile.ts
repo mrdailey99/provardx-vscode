@@ -111,7 +111,21 @@ class CreatePropertiesFile {
         folderUri: string,
         fileName: string
     ): Promise<void> {
-        const resultsPath = path.join(provarProjectUri, 'ANT', 'Results');
+        // fix issue to replace '\' with '/' for property file
+        // var escapeCharacters = /\\/gi;
+        // const resultsPath = path.join(provarProjectUri, 'ANT', 'Results').replace(escapeCharacters, '/');
+        // provarHomeUri = provarHomeUri.replace(escapeCharacters, '/');
+        // provarProjectUri = provarProjectUri.replace(escapeCharacters, '/');
+        // folderUri = folderUri.replace(escapeCharacters, '/');
+        // end changes mrdailey99
+
+        // fix issue to replace '\' with '\\' for property file
+        var escapeCharacters = /\\/gi;
+        const resultsPath = path.join(provarProjectUri, 'ANT', 'Results').replace(escapeCharacters, '\\\\');
+        provarHomeUri = provarHomeUri.replace(escapeCharacters, '\\\\');
+        provarProjectUri = provarProjectUri.replace(escapeCharacters, '\\\\');
+        folderUri = folderUri.replace(escapeCharacters, '\\\\');
+        // end changes mrdailey99
 
         const propertiesFileConent = DEFAULT_PROPERTIES_FILE_CONTENT.replace('{{provarHome}}', provarHomeUri)
             .replace('{{projectPath}}', provarProjectUri)

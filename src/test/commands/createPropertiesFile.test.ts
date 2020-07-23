@@ -85,6 +85,38 @@ describe('Create Properties File', () => {
         expect(showOpenDialogStub()).to.be.undefined;
     });
 
+    // Added test to ensure file path is valid in property file
+    it('Should create properties file with valid path(s)', async () => {
+        fsExistSyncStub.onCall(0).returns(true);
+        fsExistSyncStub.onCall(1).returns(false);
+
+        fsStatSyncStub.returns({ isFile: () => true });
+        showOpenDialogStub.returns([vscode.Uri.parse('/somepath/provardx')]);
+        inputBoxSpy.returns('provardx-properties.json');
+        showOpenDialogStub.returns([vscode.Uri.parse('/somepath/testfolder')]);
+
+        const executeCommandStub = sinon.stub(vscode.commands, 'executeCommand');
+        executeCommandStub.returns(Promise.resolve());
+
+        const openTextDocumentStub = sinon.stub(vscode.workspace, 'openTextDocument');
+        openTextDocumentStub.returns(Promise.resolve({} as vscode.TextDocument));
+
+        await createPropertiesFile();
+        switch (process.platform) {
+            case 'darwin':
+                expect(writeFileStub.args[0][1]).to.contain('/Provar');
+                expect(writeFileStub.args[0][1]).to.contain('/somepath/testfolder');
+                expect(writeFileStub.args[0][1]).to.contain('/somepath/testfolder/ANT/Results');
+            case 'win32':
+                expect(writeFileStub.args[0][1]).to.contain('\\\\Provar');
+                expect(writeFileStub.args[0][1]).to.contain('\\\\somepath\\\\testfolder');
+                expect(writeFileStub.args[0][1]).to.contain('\\\\somepath\\\\testfolder\\\\ANT\\\\Results');
+        }
+
+        executeCommandStub.restore();
+        openTextDocumentStub.restore();
+    }).timeout(10000);
+
     it('Should create properties file successfully', async () => {
         fsExistSyncStub.onCall(0).returns(true);
         fsExistSyncStub.onCall(1).returns(false);
