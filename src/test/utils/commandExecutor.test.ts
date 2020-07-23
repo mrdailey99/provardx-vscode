@@ -19,6 +19,7 @@ describe('CommandExecutor tests', () => {
         execution.stdoutSubject.subscribe((data) => (stdout += data.toString()));
         let stderr = '';
         execution.stderrSubject.subscribe((data) => (stderr += data.toString()));
+
         const exitCode = await new Promise<string>((resolve, reject) => {
             execution.processExitSubject.subscribe(
                 (data) => {
@@ -28,7 +29,7 @@ describe('CommandExecutor tests', () => {
                     reject(err);
                 }
             );
-        });
+        }).catch();
 
         expect(exitCode).to.equal('0,');
         expect(stdout).to.contain('USAGE\n  $ sfdx provar');
