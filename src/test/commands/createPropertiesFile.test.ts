@@ -103,14 +103,16 @@ describe('Create Properties File', () => {
 
         await createPropertiesFile();
         switch (process.platform) {
-            case 'darwin':
+            case 'darwin': {
                 expect(writeFileStub.args[0][1]).to.contain('/Provar');
                 expect(writeFileStub.args[0][1]).to.contain('/somepath/testfolder');
                 expect(writeFileStub.args[0][1]).to.contain('/somepath/testfolder/ANT/Results');
-            case 'win32':
+            }
+            case 'win32': {
                 expect(writeFileStub.args[0][1]).to.contain('\\\\Provar');
                 expect(writeFileStub.args[0][1]).to.contain('\\\\somepath\\\\testfolder');
                 expect(writeFileStub.args[0][1]).to.contain('\\\\somepath\\\\testfolder\\\\ANT\\\\Results');
+            }
         }
 
         executeCommandStub.restore();
