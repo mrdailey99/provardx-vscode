@@ -28,9 +28,13 @@ describe('CommandExecutor tests', () => {
                     reject(err);
                 }
             );
-        }).then((data) => {
-            return data;
-        });
+        })
+            .then((data) => {
+                return data;
+            })
+            .finally(() => {
+                console.log('finally!');
+            });
 
         expect(exitCode).to.equal('0,');
         expect(stdout).to.contain('USAGE\n  $ sfdx provar');
