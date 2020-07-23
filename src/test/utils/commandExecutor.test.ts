@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as vscode from 'vscode';
 import { CommandBuilder, CommandExecutor } from '../../utils';
+import { resolve } from 'path';
 
 describe('CommandExecutor tests', () => {
     let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
@@ -30,7 +31,7 @@ describe('CommandExecutor tests', () => {
             );
         })
             .then((data) => {
-                return data;
+                return data !== undefined ? data.toString() : '';
             })
             .finally(() => {
                 console.log('finally!');
