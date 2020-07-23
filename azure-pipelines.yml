@@ -37,6 +37,7 @@ steps:
   condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
 
 - bash: |
+    echo $(Agent.OS)
     # echo "Compile vscode-plugin and Run Unit Tests"
     echo ">>> Compile vscode-test and pretest"
     yarn && yarn run pretest

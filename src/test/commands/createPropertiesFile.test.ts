@@ -89,7 +89,7 @@ describe('Create Properties File', () => {
     it('Should create properties file with valid path(s)', async () => {
         fsExistSyncStub.onCall(0).returns(true);
         fsExistSyncStub.onCall(1).returns(false);
-
+        console.log(process.platform);
         fsStatSyncStub.returns({ isFile: () => true });
         showOpenDialogStub.returns([vscode.Uri.parse('/somepath/provardx')]);
         inputBoxSpy.returns('provardx-properties.json');
@@ -104,11 +104,15 @@ describe('Create Properties File', () => {
         await createPropertiesFile();
         switch (process.platform) {
             case 'darwin': {
+                console.log(process.platform);
+                expect(process.platform).to.equal('darwin');
                 expect(writeFileStub.args[0][1]).to.contain('/Provar');
                 expect(writeFileStub.args[0][1]).to.contain('/somepath/testfolder');
                 expect(writeFileStub.args[0][1]).to.contain('/somepath/testfolder/ANT/Results');
             }
             case 'win32': {
+                console.log(process.platform);
+                expect(process.platform).to.equal('win32');
                 expect(writeFileStub.args[0][1]).to.contain('\\\\Provar');
                 expect(writeFileStub.args[0][1]).to.contain('\\\\somepath\\\\testfolder');
                 expect(writeFileStub.args[0][1]).to.contain('\\\\somepath\\\\testfolder\\\\ANT\\\\Results');
