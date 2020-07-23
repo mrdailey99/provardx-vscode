@@ -28,13 +28,12 @@ describe('CommandExecutor tests', () => {
                     reject(err);
                 }
             );
-        })
-            .then(() => {
-                expect(exitCode).to.equal('0,');
-            })
-            .finally(() => {
-                expect(stdout).to.contain('USAGE\n  $ sfdx provar');
-                expect(stderr).to.contain('');
-            });
+        }).then((data) => {
+            return data;
+        });
+
+        expect(exitCode).to.equal('0,');
+        expect(stdout).to.contain('USAGE\n  $ sfdx provar');
+        expect(stderr).to.contain('');
     }).timeout(10000);
 });
