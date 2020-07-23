@@ -35,5 +35,5 @@ describe('CommandExecutor tests', () => {
         expect(exitCode).to.equal('0,');
         expect(stdout).to.contain('USAGE\n  $ sfdx provar');
         expect(stderr).to.contain('');
-    }).timeout(10000);
+    }).timeout(100000);
 });
