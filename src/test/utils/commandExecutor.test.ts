@@ -14,7 +14,6 @@ describe('CommandExecutor tests', () => {
     it('Should pipe stdout', async () => {
         const command = new CommandBuilder('sfdx').withArg('provar').withArg('--help');
         const execution = new CommandExecutor(command, tokenSource.token);
-
         let stdout = '';
         execution.stdoutSubject.subscribe((data) => (stdout += data.toString()));
         let stderr = '';
@@ -29,10 +28,13 @@ describe('CommandExecutor tests', () => {
                     reject(err);
                 }
             );
-        }).catch();
-
-        expect(exitCode).to.equal('0,');
-        expect(stdout).to.contain('USAGE\n  $ sfdx provar');
-        expect(stderr).to.contain('');
+        })
+            .then(() => {
+                expect(exitCode).to.equal('0,');
+            })
+            .finally(() => {
+                expect(stdout).to.contain('USAGE\n  $ sfdx provar');
+                expect(stderr).to.contain('');
+            });
     }).timeout(10000);
 });
