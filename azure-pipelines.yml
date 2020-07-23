@@ -9,9 +9,9 @@ trigger:
 strategy:
   matrix:
     linux:
-      imageName: 'ubuntu-16.04'
+      imageName: 'ubuntu-latest'
     mac:
-      imageName: 'macos-10.13'
+      imageName: 'macOS-latest'
     windows:
       imageName: 'vs2017-win2016'
 
@@ -37,7 +37,7 @@ steps:
     echo ">>> Compiled vscode-test"
     cd sample
     echo ">>> Run sample integration test"
-    yarn && yarn compile && yarn test
+    yarn && yarn compile && yarn run pretest && yarn run test
   displayName: Run Tests
   env:
     DISPLAY: ':99.0'
