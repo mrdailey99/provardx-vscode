@@ -27,11 +27,12 @@ describe('CommandExecutor tests', () => {
                 },
                 (err) => {
                     reject(err);
+                    console.log('Something went wrong: ', err);
                 }
             );
         })
             .then((data) => {
-                return data !== undefined ? data.toString() : '';
+                data !== undefined ? data.toString() : '';
             })
             .finally(() => {
                 console.log('finally!');
@@ -40,5 +41,5 @@ describe('CommandExecutor tests', () => {
         expect(exitCode).to.equal('0,');
         expect(stdout).to.contain('USAGE\n  $ sfdx provar');
         expect(stderr).to.contain('');
-    }).timeout(1000000);
+    });
 });
